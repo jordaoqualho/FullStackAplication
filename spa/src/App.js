@@ -1,13 +1,12 @@
 import "./App.css";
-import SomarComponent from "./components/somar-component";
-import HelloComponent from "./components/hello-component";
+
+import ContadorComponent from "./components/contador-component";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <SomarComponent></SomarComponent>
-        <HelloComponent></HelloComponent>
+        <ContadorComponent max={20} min={10}></ContadorComponent>
       </header>
     </div>
   );

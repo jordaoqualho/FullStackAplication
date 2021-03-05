@@ -12,3 +12,14 @@
   justify-content: center;
   color: white;
 }
+
+.btn {
+  background-color: white;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 15px 50px;
+  border-radius: 20px;
+  margin: 10px;
+  font-size: 40px;
+}
