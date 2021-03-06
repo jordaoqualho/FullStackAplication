@@ -1,12 +1,12 @@
+import React from "react";
 import "./App.css";
-
-import ContadorComponent from "./components/contador-component";
+import DoceEdit from "./components/doce/doce-edit";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <ContadorComponent max={20} min={10}></ContadorComponent>
+        <DoceEdit></DoceEdit>
       </header>
     </div>
   );
