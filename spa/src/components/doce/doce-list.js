@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import "../../App.css";
 
 export const DoceList = () => {
+  const history = useHistory();
   const [doces, setDoces] = useState([]);
 
   const doGetDoces = async () => {
@@ -16,7 +18,7 @@ export const DoceList = () => {
   }, []);
 
   const doExcluirDoce = async (id) => {
-    const response = await axios.delete(`/api/doces/${id}`);
+    const response = await axios.delete(`/api/doces/${id}`); 
     alert(response.data + " removido!");
     doGetDoces();
   };
@@ -56,6 +58,9 @@ export const DoceList = () => {
         </thead>
         <tbody>{tableData}</tbody>
       </table>
+      <button className="btn" onClick={() => history.push("/cadastro")}>
+        Criar Novo Doce
+      </button>
     </div>
   );
 };

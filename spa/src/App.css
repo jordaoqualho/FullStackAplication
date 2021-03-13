@@ -8,7 +8,7 @@ td {
   border: 1px solid white;
   border-collapse: collapse;
   padding: 5px 50px;
-  margin: 50px 0;
+  margin-top: 50px;
   font-weight: bold;
   font-size: 24px;
   flex-direction: row;
@@ -45,13 +45,12 @@ input {
 }
 
 input:focus {
-  border: 3px solid rgb(196, 253, 40);
+  border: 3px solid rgb(154, 206, 13);
 }
 input::placeholder {
   font-size: 15px;
   font-weight: 700;
   color: #acacac;
-  text-transform: uppercase;
 }
 
 .App-header {
@@ -84,5 +83,5 @@ input::placeholder {
 
 .btn:hover {
   color: white;
-  background-color: rgb(196, 253, 40);
+  background-color: rgb(154, 206, 13);
 }
