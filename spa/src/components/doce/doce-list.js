@@ -6,14 +6,26 @@ import "../../App.css";
 export const DoceList = () => {
   const [doces, setDoces] = useState([]);
 
-  const doGetCores = async () => {
+  const doGetDoces = async () => {
     const response = await axios.get("/api/doces");
     setDoces(response.data);
   };
 
   useEffect(() => {
-    doGetCores();
+    doGetDoces();
   }, []);
+
+  const doExcluirDoce = async (id) => {
+    const response = await axios.delete(`/api/doces/${id}`);
+    alert(response.data + " removido!");
+    doGetDoces();
+  };
+
+  const handleExcluir = (id) => {
+    if (window.confirm("Deseja Excluir?")) {
+      doExcluirDoce(id);
+    }
+  };
 
   const tableData = doces.map((row) => {
     return (
@@ -21,6 +33,10 @@ export const DoceList = () => {
         <td>{row.id}</td>
         <td>{row.nome}</td>
         <td>{row.preco}</td>
+        <td>
+          <button onClick={() => handleExcluir(row.id)}>Excluir</button>
+          <button>Editar</button>
+        </td>
       </tr>
     );
   });
@@ -35,6 +51,7 @@ export const DoceList = () => {
             <td>ID</td>
             <td>Nome</td>
             <td>Preço</td>
+            <td>Ações</td>
           </tr>
         </thead>
         <tbody>{tableData}</tbody>

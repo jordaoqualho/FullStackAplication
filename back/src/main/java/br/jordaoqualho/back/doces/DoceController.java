@@ -39,9 +39,9 @@ public class DoceController {
   }
 
   @DeleteMapping("/{id}")
-  public void delete (@PathVariable String id) {
-    this.doces = this.doces.stream()
-    .filter(cor -> cor.getId().equals(id))
-    .collect(Collectors.toList());
+  public void delete(@PathVariable String id) {
+      this.doces = this.doces.stream()
+          .filter(doce -> !doce.getId().equals(id))
+          .collect(Collectors.toList());
   }
 }
