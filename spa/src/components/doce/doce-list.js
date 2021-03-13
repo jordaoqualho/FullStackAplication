@@ -37,7 +37,9 @@ export const DoceList = () => {
         <td>{row.preco}</td>
         <td>
           <button onClick={() => handleExcluir(row.id)}>Excluir</button>
-          <button>Editar</button>
+          <button onClick={() => history.push(`/editar/${row.id}`)}>
+            Editar
+          </button>
         </td>
       </tr>
     );

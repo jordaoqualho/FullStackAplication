@@ -1,44 +1,49 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-
+import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import "../../App.css";
 
 /* rafc  - comando para criar um component arrow*/
 
-const DoceNew = () => {
+const DoceEdit = () => {
   const history = useHistory();
+  const { idParaEditar } = useParams();
   const [doce, SetDoce] = useState({ nome: "", preco: "" });
 
-  // nfn - comando para criar função anonima
-  const doPost = async () => {
-    const response = await axios.post("/api/doces", doce);
-    alert(`${doce.nome} foi adicionado com sucesso!`);
+  const doGetById = async () => {
+    const response = await axios.get(`/api/doces/${idParaEditar}`, doce);
+    SetDoce(response.data);
+  };
+
+  useEffect(() => {
+    doGetById();
+  }, []);
+
+  const doPut = async () => {
+    const response = await axios.put(`/api/doces/${idParaEditar}`, doce);
+    alert(`${doce.nome} alterado com sucesso!`); //não funciona
     history.push("/");
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    doPost();
+    doPut();
   };
 
   const handleChange = (event) => {
-    // if (event.target.value === "") {
-    //   console.log("vazio");
-    // } else {
-    // }
-    const novoDoce = { ...doce, [event.target.name]: event.target.value };
-    SetDoce(novoDoce);
+    const editarDoce = { ...doce, [event.target.name]: event.target.value };
+    SetDoce(editarDoce);
   };
 
   return (
     <div>
-      <h3>Cadastro de Doce</h3>
+      <h3>Alteração de Doce</h3>
       <hr></hr>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           required
+          value={doce.nome}
           onChange={handleChange}
           name="nome"
           placeholder="Nome do Doce"
@@ -46,11 +51,12 @@ const DoceNew = () => {
         <input
           type="text"
           required
+          value={doce.preco}
           onChange={handleChange}
           name="preco"
           placeholder="Preço"
         />
-        <button className="btn">Enviar</button>
+        <button className="btn">Alterar</button>
         <button className="btn-cancel" onClick={() => history.push("/")}>
           Cancelar
         </button>
@@ -59,4 +65,4 @@ const DoceNew = () => {
   );
 };
 
-export default DoceNew;
+export default DoceEdit;

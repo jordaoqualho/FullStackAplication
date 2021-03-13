@@ -4,6 +4,7 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import DoceList from "./components/doce/doce-list";
 import DoceNew from "./components/doce/doce-new";
+import DoceEdit from "./components/doce/doce-edit";
 
 function App() {
   return (
@@ -17,8 +18,8 @@ function App() {
             <Route path="/cadastro">
               <DoceNew></DoceNew>
             </Route>
-            <Route path="/editar">
-              <DoceNew></DoceNew>
+            <Route path="/editar/:idParaEditar">
+              <DoceEdit></DoceEdit>
             </Route>
           </Switch>
         </Router>

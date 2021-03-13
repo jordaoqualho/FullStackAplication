@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,12 @@ public class DoceController {
     return this.doces;
   }
 
+  @GetMapping("/{idParaEditar}")
+  public Doce getById(@PathVariable("idParaEditar") String idParaEditar) {
+      return this.doces.stream().filter(doce -> doce.getId().equals(idParaEditar) )
+      .findFirst().orElseGet(Doce::new);
+  }
+
   @PostMapping
   public String post(@RequestBody Doce novo) {
     if (this.doces.contains(novo)) {
@@ -37,6 +44,15 @@ public class DoceController {
     this.doces.add(novo);
     return novo.getNome();
   }
+
+  @PutMapping("/{id}")
+    public void put(@PathVariable String id, @RequestBody Doce doceEditado) {
+        this.doces = this.doces.stream()
+            .filter(doce -> !doce.getId().equals(id))
+            .collect(Collectors.toList());
+            
+        this.doces.add(doceEditado);
+    }
 
   @DeleteMapping("/{id}")
   public void delete(@PathVariable String id) {
