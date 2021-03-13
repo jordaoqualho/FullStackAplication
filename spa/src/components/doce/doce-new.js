@@ -23,8 +23,11 @@ const DoceNew = () => {
   };
 
   const handleChange = (event) => {
+    // if (event.target.value === "") {
+    //   console.log("vazio");
+    // } else {
+    // }
     const novoDoce = { ...doce, [event.target.name]: event.target.value };
-    console.log(doce);
     SetDoce(novoDoce);
   };
 
@@ -33,23 +36,24 @@ const DoceNew = () => {
       <h3>Cadastro de Doce</h3>
       <hr></hr>
       <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            onChange={handleChange}
-            name="nome"
-            placeholder="Nome do Doce"
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            onChange={handleChange}
-            name="preco"
-            placeholder="Preço"
-          />
-        </div>
+        <input
+          type="text"
+          required
+          onChange={handleChange}
+          name="nome"
+          placeholder="Nome do Doce"
+        />
+        <input
+          type="text"
+          required
+          onChange={handleChange}
+          name="preco"
+          placeholder="Preço"
+        />
         <button className="btn">Enviar</button>
+        <button className="btn-cancel" onClick={() => history.push("/")}>
+          Cancelar
+        </button>
       </form>
     </div>
   );

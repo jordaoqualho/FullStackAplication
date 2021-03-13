@@ -17,11 +17,11 @@ function App() {
             <Route path="/cadastro">
               <DoceNew></DoceNew>
             </Route>
+            <Route path="/editar">
+              <DoceNew></DoceNew>
+            </Route>
           </Switch>
         </Router>
-
-        {/* <DoceEdit></DoceEdit> */}
-        {/* <DoceList></DoceList> */}
       </header>
     </div>
   );

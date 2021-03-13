@@ -18,7 +18,7 @@ export const DoceList = () => {
   }, []);
 
   const doExcluirDoce = async (id) => {
-    const response = await axios.delete(`/api/doces/${id}`); 
+    const response = await axios.delete(`/api/doces/${id}`);
     alert(response.data + " removido!");
     doGetDoces();
   };
@@ -45,7 +45,7 @@ export const DoceList = () => {
 
   return (
     <div>
-      <h2>Listagem de Doces</h2>
+      <h2>Tabela de Doces</h2>
       <hr />
       <table>
         <thead>
