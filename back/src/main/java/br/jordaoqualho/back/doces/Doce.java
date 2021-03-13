@@ -7,16 +7,15 @@ import lombok.Data;
 public class Doce {
   private String id;
   private String nome;
-  private double preco;
+  private String preco;
 
   public Doce() {
     this.id = UUID.randomUUID().toString();
   }
 
-  public Doce(String nome, double preco) {
+  public Doce(String nome, String preco) {
     this();
     this.nome = nome;
-    this.preco = preco;
-    
+    this.preco = preco;    
   }  
 }

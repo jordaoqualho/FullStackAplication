@@ -6,8 +6,9 @@ import "../../App.css";
 /* rafc  - comando para criar um component arrow*/
 
 const DoceEdit = () => {
-  const [doce, SetDoce] = useState({ nome: "", valor: 0.5 });
+  const [doce, SetDoce] = useState({ nome: "", preco: "" });
 
+  // nfn - comando para criar função anonima
   const doPost = async () => {
     const response = await axios.post("/api/doces", doce);
     alert(response.data + " adicionado!");
@@ -39,11 +40,10 @@ const DoceEdit = () => {
         </div>
         <div>
           <input
-            type="number"
-            step="0.01"
+            type="text"
             onChange={handleChange}
-            name="valor"
-            placeholder="valor"
+            name="preco"
+            placeholder="preco"
           />
         </div>
         <button className="btn">Enviar</button>

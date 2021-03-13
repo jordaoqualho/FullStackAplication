@@ -18,10 +18,10 @@ public class DoceController {
   private List<Doce> doces = new ArrayList<>();
 
   public DoceController (){
-    doces.add(new Doce("Bombom de morango", 3.20));
-    doces.add(new Doce("Brigadeiro tradicional", 1.50));
-    doces.add(new Doce("Trufa tradicional", 2.00));
-    doces.add(new Doce("Bombom de uva", 2.20));
+    doces.add(new Doce("Bombom de morango", "3.20"));
+    doces.add(new Doce("Brigadeiro tradicional", "1.50"));
+    doces.add(new Doce("Trufa tradicional", "2.00"));
+    doces.add(new Doce("Bombom de uva", "2.20"));
   }
 
   @GetMapping

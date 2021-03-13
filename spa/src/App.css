@@ -2,6 +2,15 @@
   text-align: start;
 }
 
+table,
+th,
+td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  padding: 10px 50px;
+  margin: 100px 0;
+}
+
 input {
   padding: 20px 0px 15px 15px;
   font-size: 15px;
@@ -30,7 +39,7 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   padding: 5vw;
-  font-size: 60px;
+  font-size: 30px;
   justify-content: flex-start;
   align-items: flex-start;
   color: white;
