@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import tempAlert from "../alert/alert";
 
 import "../../App.css";
 
@@ -13,8 +14,8 @@ const DoceNew = () => {
   // nfn - comando para criar função anonima
   const doPost = async () => {
     await axios.post("/api/doces", doce);
-    alert(`${doce.nome} foi adicionado com sucesso!`);
-    history.push("/");
+    tempAlert(`${doce.nome} foi adicionado com sucesso!`, 5000);
+    history.push("/doces");
   };
 
   const handleSubmit = (event) => {
@@ -23,7 +24,7 @@ const DoceNew = () => {
   };
 
   const handleChange = (event) => {
-     const novoDoce = { ...doce, [event.target.name]: event.target.value };
+    const novoDoce = { ...doce, [event.target.name]: event.target.value };
     SetDoce(novoDoce);
   };
 
@@ -47,7 +48,7 @@ const DoceNew = () => {
           placeholder="Preço"
         />
         <button className="btn">Enviar</button>
-        <button className="btn-cancel" onClick={() => history.push("/")}>
+        <button className="btn-cancel" onClick={() => history.push("/doces")}>
           Cancelar
         </button>
       </form>

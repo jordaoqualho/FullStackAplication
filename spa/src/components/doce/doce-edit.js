@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import "../../App.css";
+import tempAlert from "../alert/alert";
 
 /* rafc  - comando para criar um component arrow*/
 
@@ -23,8 +24,8 @@ const DoceEdit = () => {
 
   const doPut = async () => {
     await axios.put(`/api/doces/${idParaEditar}`, doce);
-    alert(`${doce.nome} alterado com sucesso!`); //não funciona
-    history.push("/");
+    tempAlert(`${doce.nome} alterado com sucesso!`, 5000); 
+    history.push("/doces");
   };
 
   const handleSubmit = (event) => {
@@ -59,7 +60,7 @@ const DoceEdit = () => {
           placeholder="Preço"
         />
         <button className="btn">Alterar</button>
-        <button className="btn-cancel" onClick={() => history.push("/")}>
+        <button className="btn-cancel" onClick={() => history.push("/doces")}>
           Cancelar
         </button>
       </form>

@@ -3,6 +3,8 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import { Link } from "react-router-dom";
+import Menu from "../menu/menu";
+import tempAlert from "../alert/alert";
 
 const PedidoList = () => {
   const history = useHistory();
@@ -27,6 +29,7 @@ const PedidoList = () => {
 
   const doExcluirPedidos = async (id) => {
     await axios.delete(`/api/pedidos/${id}`);
+    tempAlert("Pedido removido!", 5000);
     doGetpedidos();
   };
 
@@ -62,10 +65,8 @@ const PedidoList = () => {
 
   return (
     <div>
+      <Menu></Menu>
       <h2>Listagem de pedidos</h2>
-      <button className="btn" onClick={() => history.push("/")}>
-        Doces
-      </button>
       <hr></hr>
       <div className="pd">
         <input

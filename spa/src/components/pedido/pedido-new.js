@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import "../../App.css";
+import tempAlert from "../alert/alert";
 
 /* rafc  - comando para criar um component arrow*/
 
@@ -17,7 +18,7 @@ const PedidoNew = () => {
   // nfn - comando para criar função anonima
   const doPost = async () => {
     await axios.post("/api/pedidos", pedido);
-    alert(`Pedido adicionado com sucesso!`);
+    tempAlert(`Pedido adicionado com sucesso!`,5000);
     history.push("/pedidos");
   };
 
@@ -59,7 +60,7 @@ const PedidoNew = () => {
           <input
             type="text"
             required
-            wname="valorTotal"
+            name="valorTotal"
             onChange={handleChange}
           ></input>
         </div>

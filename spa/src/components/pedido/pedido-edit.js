@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
+import tempAlert from "../alert/alert";
 
 const PedidoEdit = () => {
   const history = useHistory();
@@ -27,14 +28,14 @@ const PedidoEdit = () => {
 
   const doPut = async () => {
     await axios.put(`/api/pedidos/${idParaEditar}`, pedido);
+    tempAlert(`${pedido.nomeDoCliente} alterado com sucesso!`, 5000);
     history.push("/pedidos");
   };
 
-   const handleSubmit = (event) => {
-     event.preventDefault();
-     doPut();
-   };
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    doPut();
+  };
 
   const handleChange = (event) => {
     const novopedido = { ...pedido, [event.target.name]: event.target.value };
@@ -51,6 +52,7 @@ const PedidoEdit = () => {
           <input
             type="text"
             name="nomeDoCliente"
+            required
             onChange={handleChange}
             value={pedido.nomeDoCliente}
           ></input>
@@ -60,6 +62,7 @@ const PedidoEdit = () => {
           <input
             type="date"
             name="lancadoEm"
+            required
             onChange={handleChange}
             value={pedido.lancadoEm}
           ></input>
@@ -69,6 +72,7 @@ const PedidoEdit = () => {
           <input
             type="text"
             name="valorTotal"
+            required
             onChange={handleChange}
             value={pedido.valorTotal}
           ></input>

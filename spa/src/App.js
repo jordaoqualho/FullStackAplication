@@ -8,6 +8,7 @@ import DoceEdit from "./components/doce/doce-edit";
 import PedidoList from "./components/pedido/pedido-list";
 import PedidoEdit from "./components/pedido/pedido-edit";
 import PedidoNew from "./components/pedido/pedido-new";
+import LandingPage from "./components/landing/landing-page";
 
 function App() {
   return (
@@ -16,12 +17,15 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/">
+              <LandingPage></LandingPage>
+            </Route>
+            <Route exact path="/doces">
               <DoceList></DoceList>
             </Route>
-            <Route path="/cadastro">
+            <Route path="/doces/novo">
               <DoceNew></DoceNew>
             </Route>
-            <Route path="/editar/:idParaEditar">
+            <Route path="/doces/editar/:idParaEditar">
               <DoceEdit></DoceEdit>
             </Route>
             <Route exact path="/pedidos">

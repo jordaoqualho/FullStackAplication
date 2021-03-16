@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import "../../App.css";
+import Menu from "../menu/menu";
+import tempAlert from "../alert/alert";
 
 export const DoceList = () => {
   const history = useHistory();
@@ -20,20 +22,17 @@ export const DoceList = () => {
 
   const doExcluirDoce = async (id) => {
     const response = await axios.delete(`/api/doces/${id}`);
-    alert(response.data + " removido!");
+    tempAlert("Doce removido!", 3000);
     doGetDoces();
   };
 
   const doSearchProdutos = async () => {
     const response = await axios.get(`/api/doces?termo=${termoDeBusca}`);
     setDoces(response.data);
-    console.log(response.data);
   };
 
-  const handleExcluir = (id) => {
-    if (window.confirm("Deseja Excluir?")) {
-      doExcluirDoce(id);
-    }
+  const handleExcluir = (id) => {    
+      doExcluirDoce(id);    
   };
 
   const handleSearchChange = (event) => {
@@ -53,7 +52,7 @@ export const DoceList = () => {
         <td>{row.preco}</td>
         <td>
           <button onClick={() => handleExcluir(row.id)}>Excluir</button>
-          <button onClick={() => history.push(`/editar/${row.id}`)}>
+          <button onClick={() => history.push(`/doces/editar/${row.id}`)}>
             Editar
           </button>
         </td>
@@ -63,10 +62,11 @@ export const DoceList = () => {
 
   return (
     <div>
+      <Menu></Menu>
       <h2>Tabela de Doces</h2>
-      <button className="btn" onClick={() => history.push("/pedidos")}>
+      {/* <button className="btn" onClick={() => history.push("/pedidos")}>
         Pedidos
-      </button>
+      </button> */}
       <hr />
       <div className="pd">
         <input
@@ -91,7 +91,7 @@ export const DoceList = () => {
         </thead>
         <tbody>{tableData}</tbody>
       </table>
-      <button className="btn" onClick={() => history.push("/cadastro")}>
+      <button className="btn" onClick={() => history.push("/doces/novo")}>
         Criar Novo Doce
       </button>
     </div>
