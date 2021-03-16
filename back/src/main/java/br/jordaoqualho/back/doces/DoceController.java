@@ -29,6 +29,7 @@ public class DoceController {
   public List<Doce> get (){
     return this.doces;
   }
+  
 
   @GetMapping("/{idParaEditar}")
   public Doce getById(@PathVariable("idParaEditar") String idParaEditar) {

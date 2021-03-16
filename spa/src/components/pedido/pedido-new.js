@@ -59,7 +59,7 @@ const PedidoNew = () => {
           <input
             type="text"
             required
-            name="valorTotal"
+            wname="valorTotal"
             onChange={handleChange}
           ></input>
         </div>
