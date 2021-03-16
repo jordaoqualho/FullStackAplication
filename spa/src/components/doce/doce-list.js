@@ -7,6 +7,7 @@ import "../../App.css";
 export const DoceList = () => {
   const history = useHistory();
   const [doces, setDoces] = useState([]);
+  const [termoDeBusca, setTermoDeBusca] = useState("");
 
   const doGetDoces = async () => {
     const response = await axios.get("/api/doces");
@@ -23,10 +24,25 @@ export const DoceList = () => {
     doGetDoces();
   };
 
+  const doSearchProdutos = async () => {
+    const response = await axios.get(`/api/doces?termo=${termoDeBusca}`);
+    setDoces(response.data);
+    console.log(response.data);
+  };
+
   const handleExcluir = (id) => {
     if (window.confirm("Deseja Excluir?")) {
       doExcluirDoce(id);
     }
+  };
+
+  const handleSearchChange = (event) => {
+    setTermoDeBusca(event.target.value);
+  };
+
+  const handleSearch = (event) => {
+    console.log("Pesquisando o doce " + termoDeBusca);
+    doSearchProdutos();
   };
 
   const tableData = doces.map((row) => {
@@ -49,6 +65,16 @@ export const DoceList = () => {
     <div>
       <h2>Tabela de Doces</h2>
       <hr />
+      <div className="pd">
+        <input
+          className="cb"
+          type="text"
+          placeholder="O que deseja buscar?"
+          onChange={handleSearchChange}
+        />
+        <button className="bb" onClick={handleSearch}>Pesquisar</button>
+      </div>
+
       <table>
         <thead>
           <tr>

@@ -1,3 +1,5 @@
+// @ts-nocheck
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
@@ -20,7 +22,7 @@ const DoceEdit = () => {
   }, []);
 
   const doPut = async () => {
-    const response = await axios.put(`/api/doces/${idParaEditar}`, doce);
+    await axios.put(`/api/doces/${idParaEditar}`, doce);
     alert(`${doce.nome} alterado com sucesso!`); //não funciona
     history.push("/");
   };

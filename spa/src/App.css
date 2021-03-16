@@ -100,7 +100,6 @@ h2 {
 }
 .btn-cancel {
   background-color: white;
-  font-size: 15px;
   font-weight: 700;
   color: #282c34;
   cursor: pointer;
@@ -117,4 +116,34 @@ h2 {
 .btn-cancel:hover {
   color: white;
   background-color: rgb(206, 19, 13);
+}
+
+.pd {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+.cb {
+  height: 44px;
+  padding: 0 25px !important;
+  margin: 0 !important;
+  background-color: #fff;
+  padding: 5px 20px;
+}
+.bb {
+  background-color: white;
+  font-size: 12px;
+  font-weight: 900;
+  color: #282c34;
+  cursor: pointer;
+  height: 50px !important;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.bb:hover {
+  background-color: rgb(109, 107, 194);
+  color: white;
 }
