@@ -64,6 +64,9 @@ export const DoceList = () => {
   return (
     <div>
       <h2>Tabela de Doces</h2>
+      <button className="btn" onClick={() => history.push("/pedidos")}>
+        Pedidos
+      </button>
       <hr />
       <div className="pd">
         <input
@@ -72,7 +75,9 @@ export const DoceList = () => {
           placeholder="O que deseja buscar?"
           onChange={handleSearchChange}
         />
-        <button className="bb" onClick={handleSearch}>Pesquisar</button>
+        <button className="bb" onClick={handleSearch}>
+          Pesquisar
+        </button>
       </div>
 
       <table>

@@ -1,5 +1,5 @@
-// @ts-nocheck
 /* eslint-disable react-hooks/exhaustive-deps */
+// @ts-nocheck
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
@@ -19,7 +19,7 @@ const DoceEdit = () => {
 
   useEffect(() => {
     doGetById();
-  }, []);
+  },[]);
 
   const doPut = async () => {
     await axios.put(`/api/doces/${idParaEditar}`, doce);

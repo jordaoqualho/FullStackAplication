@@ -12,7 +12,7 @@ const DoceNew = () => {
 
   // nfn - comando para criar função anonima
   const doPost = async () => {
-    const response = await axios.post("/api/doces", doce);
+    await axios.post("/api/doces", doce);
     alert(`${doce.nome} foi adicionado com sucesso!`);
     history.push("/");
   };
@@ -23,11 +23,7 @@ const DoceNew = () => {
   };
 
   const handleChange = (event) => {
-    // if (event.target.value === "") {
-    //   console.log("vazio");
-    // } else {
-    // }
-    const novoDoce = { ...doce, [event.target.name]: event.target.value };
+     const novoDoce = { ...doce, [event.target.name]: event.target.value };
     SetDoce(novoDoce);
   };
 
