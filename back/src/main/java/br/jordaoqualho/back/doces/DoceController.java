@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.github.javafaker.Faker;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/doces")
 public class DoceController {
   private List<Doce> doces = new ArrayList<>();
+  Faker faker = new Faker();
+
 
   public DoceController (){
-    doces.add(new Doce("Bombom de morango", "3.20"));
-    doces.add(new Doce("Brigadeiro tradicional", "1.50"));
-    doces.add(new Doce("Trufa tradicional", "2.00"));
-    doces.add(new Doce("Bombom de uva", "2.20"));
+    // doces.add(new Doce("Bombom de morango", "3.20"));
+    // doces.add(new Doce("Brigadeiro tradicional", "1.50"));
+    // doces.add(new Doce("Trufa tradicional", "2.00"));
+    // doces.add(new Doce("Bombom de uva", "2.20"));
+    for (int i = 0; i < 15; i++) {
+      String name = faker.food().dish();
+      Double price = faker.number().randomDouble(1, 2, 6);
+      String preco = price.toString();
+      doces.add(new Doce(name, preco));      
+    }
   }
 
   @GetMapping

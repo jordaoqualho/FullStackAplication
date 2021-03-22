@@ -8,29 +8,29 @@ import tempAlert from "../alert/alert";
 
 const PedidoList = () => {
   const history = useHistory();
-
-  const [pedidos, setPedidos] = useState([]);
+  const [pedidos, setPedidos] = useState({
+    content: [],
+    pageable: { pageNumber: 0 },
+    totalPages: 0,
+  });
   const [termoDeBusca, setTermoDeBusca] = useState("");
+  const [páginaRequerida, setPáginaRequerida] = useState(0);
 
-  const doGetpedidos = async () => {
-    const response = await axios.get("/api/pedidos");
+  const doGetPedidos = async (páginaRequerida) => {
+    const response = await axios.get(
+      `/api/pedidos?termo=${termoDeBusca}&page=${páginaRequerida}`
+    );
     setPedidos(response.data);
-  };
-
-  const doSearchPedidos = async () => {
-    const response = await axios.get(`/api/pedidos?termo=${termoDeBusca}`);
-    setPedidos(response.data);
-    console.log(response.data);
   };
 
   useEffect(() => {
-    doGetpedidos();
+    doGetPedidos(0);
   }, []);
 
   const doExcluirPedidos = async (id) => {
     await axios.delete(`/api/pedidos/${id}`);
     tempAlert("Pedido removido!", 5000);
-    doGetpedidos();
+    doGetPedidos(0);
   };
 
   const handleExcluir = (id) => {
@@ -39,14 +39,14 @@ const PedidoList = () => {
 
   const handleSearchInputChange = (event) => {
     setTermoDeBusca(event.target.value);
+    doGetPedidos(páginaRequerida);
   };
 
-  const handleSearch = (event) => {
-    console.log("Pesquisando por: " + termoDeBusca);
-    doSearchPedidos();
+  const handleSearch = () => {
+    doGetPedidos(0);
   };
 
-  const tableData = pedidos.map((row) => {
+  const tableData = pedidos.content.map((row) => {
     return (
       <tr key={row.id}>
         <td>{row.id}</td>
@@ -63,10 +63,24 @@ const PedidoList = () => {
     );
   });
 
+  useEffect(() => {
+    doGetPedidos(páginaRequerida);
+  }, []);
+
+  const requestPage = (requestedPage) => {
+    if (requestedPage <= 0) {
+      requestedPage = 0;
+    }
+    if (requestedPage >= pedidos.totalPages) {
+      requestedPage = pedidos.totalPages - 1;
+    }
+    setPáginaRequerida(requestedPage);
+  };
+
   return (
     <div>
       <Menu></Menu>
-      <h2>Listagem de pedidos</h2>
+      <h2>Pedidos Feitos</h2>
       <hr></hr>
       <div className="pd">
         <input
@@ -93,6 +107,21 @@ const PedidoList = () => {
       </table>
       <button className="btn" onClick={() => history.push("/pedidos/novo")}>
         Criar Novo Pedido
+      </button>
+      <button
+        className="btn-page"
+        onClick={() => requestPage(pedidos.pageable.pageNumber - 1)}
+      >
+        {"<"}
+      </button>
+      <span>
+        Página  {pedidos.pageable.pageNumber + 1} de {pedidos.totalPages}
+      </span>
+      <button
+        className="btn-page"
+        onClick={() => requestPage(pedidos.pageable.pageNumber + 1)}
+      >
+        {">"}
       </button>
     </div>
   );

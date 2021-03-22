@@ -1,8 +1,9 @@
 package br.jordaoqualho.back.pedidos;
 
 
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/pedidos")
 public class PedidoController {
     @Autowired
-    private PedidoService service;    
+    private PedidoService service; 
+   
 
     @GetMapping
-    public List<Pedido> get(@RequestParam(name = "termo",required = false) String termo) {
+    public Page<Pedido> get(Pageable pageRequest,  @RequestParam(name = "termo",required = false) String termo) {
         System.out.println(">>>> [" + termo + "]");
-        return service.obterTodos(termo);
+        return service.obterTodos(pageRequest, termo);
     }
  
     @GetMapping("/{idParaEditar}")
@@ -36,11 +38,18 @@ public class PedidoController {
         service.salvar(pedidoEditado);
     }
 
+    @PostMapping("/gerar-pedidos")
+    public String postGerarPedidos() {
+        service.gerarPedidos();
+        return "Pedidos gerados com sucesso!";
+    }
+
     @PostMapping
     public String post(@RequestBody Pedido novo) {
         Pedido pedidoSalvo = service.salvar(novo);
         return pedidoSalvo.getId();
     }
+
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {

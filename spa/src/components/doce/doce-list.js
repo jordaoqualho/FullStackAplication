@@ -21,7 +21,7 @@ export const DoceList = () => {
   }, []);
 
   const doExcluirDoce = async (id) => {
-    const response = await axios.delete(`/api/doces/${id}`);
+    await axios.delete(`/api/doces/${id}`);
     tempAlert("Doce removido!", 3000);
     doGetDoces();
   };
@@ -63,7 +63,7 @@ export const DoceList = () => {
   return (
     <div>
       <Menu></Menu>
-      <h2>Tabela de Doces</h2>
+      <h2>Cardápio de Comidas</h2>
       {/* <button className="btn" onClick={() => history.push("/pedidos")}>
         Pedidos
       </button> */}

@@ -1,7 +1,7 @@
 package br.jordaoqualho.back.pedidos;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 // import org.springframework.data.jpa.repository.Query;
 
@@ -12,6 +12,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, String> {
     List<Produto> encontrarComTermo(String termo);
     */
 
-    List<Pedido> findBynomeDoClienteLike(String nomeDoCliente);
+    // List<Pedido> findBynomeDoClienteLike(String nomeDoCliente);
     
+    Page<Pedido> findBynomeDoClienteLike(Pageable pageRequest, String nomeDoCliente);
+
 }

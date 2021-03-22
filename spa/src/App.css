@@ -113,7 +113,6 @@ h2 {
 .btn-cancel {
   font-size: 15px;
   background-color: var(--light);
-
   font-weight: 900;
   color: var(--bg);
   cursor: pointer;
@@ -190,4 +189,28 @@ h2 {
 }
 .nav a:hover {
   color: var(--purple);
+}
+.btn-page {
+  background-color: var(--light);
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--bg);
+  cursor: pointer;
+  text-transform: uppercase;
+  border: none;
+  padding: 10px 30px;
+  font-weight: 900;
+  border-radius: 10px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.btn-page:hover {
+  background-color: var(--purple);
+  color: var(--light);
+}
+span {
+  font-size: 18px;
+  padding: 10px 30px;
+
+  font-weight: 500;
 }
