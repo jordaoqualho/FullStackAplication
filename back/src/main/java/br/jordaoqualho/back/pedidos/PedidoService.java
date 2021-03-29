@@ -48,24 +48,14 @@ public class PedidoService {
         return repository.save(pedido);
     }    
 
-    public void gerarPedidos(){
-        /*
-        for (int i = 0; i < 100; i++) {
-            String nome = faker.name().fullName();
-            String date = (
-                 faker.number().numberBetween(1, 29)+
-                faker.number().numberBetween(1, 12)+
-                 "-" + 
-            LocalDate localDate = LocalDate.parse(date);            
+    public void gerarPedidos(){             
+        for (int i = 0; i < 5; i++) {
+            String nome = faker.name().fullName();            
+            LocalDate localDate = LocalDate.now();            
             int preco = faker.number().numberBetween(100, 1000);
             Pedido novo = new Pedido(nome, localDate, new BigDecimal(preco));
             repository.save(novo);            
-        }*/
-
-        for (int i = 0; i < 10; i++) {
-            Pedido novo = new Pedido("Pedido " + i, LocalDate.now(), new BigDecimal(i * 1.10));
-            repository.save(novo);
-        }
+        }        
     }
    
 }

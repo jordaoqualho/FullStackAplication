@@ -29,7 +29,7 @@ const PedidoList = () => {
 
   const doExcluirPedidos = async (id) => {
     await axios.delete(`/api/pedidos/${id}`);
-    tempAlert("Pedido removido!", 5000);
+    tempAlert("Pedido " + id + " removido!", 5000);
     doGetPedidos(0);
   };
 
@@ -49,15 +49,15 @@ const PedidoList = () => {
   const tableData = pedidos.content.map((row) => {
     return (
       <tr key={row.id}>
-        <td>{row.id}</td>
         <td>{row.nomeDoCliente}</td>
         <td>{row.lancadoEm}</td>
         <td>{row.valorTotal}</td>
         <td>
           <button onClick={() => handleExcluir(row.id)}>Excluir</button>
-          <Link to={`/pedidos/editar/${row.id}`}>
-            <button>Editar</button>
-          </Link>
+          <button onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
+            Editar
+          </button>
+          
         </td>
       </tr>
     );
@@ -96,7 +96,6 @@ const PedidoList = () => {
       <table>
         <thead>
           <tr>
-            <td>id</td>
             <td>Nome Do Cliente</td>
             <td>Lançado em</td>
             <td>Valor Total</td>
@@ -115,7 +114,7 @@ const PedidoList = () => {
         {"<"}
       </button>
       <span>
-        Página  {pedidos.pageable.pageNumber + 1} de {pedidos.totalPages}
+        Página {pedidos.pageable.pageNumber + 1} de {pedidos.totalPages}
       </span>
       <button
         className="btn-page"
