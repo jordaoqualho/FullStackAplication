@@ -27,6 +27,14 @@ td {
   font-size: 24px;
   flex-direction: row;
 }
+
+.container,
+table {
+  width: 100%;
+}
+.container {
+  margin-bottom: 100px;
+}
 table button {
   padding: 10px 20px;
   font-weight: 900;
@@ -55,7 +63,7 @@ input {
   padding: 15px 0px 15px 15px;
   font-size: 18px;
   margin-bottom: 40px;
-  font-weight: 900;
+  font-weight: 500;
   color: var(--bg);
   outline: none;
   width: calc(100% - 20px);

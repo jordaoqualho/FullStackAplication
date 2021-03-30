@@ -44,12 +44,17 @@ public class PedidoService {
         repository.deleteById(id);
     }
 
+    public void excluirTodos() {
+        repository.deleteAll();
+    }
+
+
     public Pedido salvar(Pedido pedido) {
         return repository.save(pedido);
     }    
 
     public void gerarPedidos(){             
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             String nome = faker.name().fullName();            
             LocalDate localDate = LocalDate.now();            
             int preco = faker.number().numberBetween(100, 1000);

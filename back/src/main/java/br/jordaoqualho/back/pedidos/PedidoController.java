@@ -56,4 +56,10 @@ public class PedidoController {
         service.excluirPeloId(id);
     }
     
+    @DeleteMapping("/excluir-todos")
+    public void deleteAll() {
+        service.excluirTodos();
+    }
+
+
 }

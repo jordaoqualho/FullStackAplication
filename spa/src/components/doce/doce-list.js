@@ -20,9 +20,9 @@ export const DoceList = () => {
     doGetDoces();
   }, []);
 
-  const doExcluirDoce = async (id) => {
+  const doExcluirDoce = async (id, name) => {
     await axios.delete(`/api/doces/${id}`);
-    tempAlert("Doce removido!", 3000);
+    tempAlert(name + " removido do Cardápio!", 3000);
     doGetDoces();
   };
 
@@ -31,8 +31,8 @@ export const DoceList = () => {
     setDoces(response.data);
   };
 
-  const handleExcluir = (id) => {    
-      doExcluirDoce(id);    
+  const handleExcluir = (id, name) => {
+    doExcluirDoce(id, name);
   };
 
   const handleSearchChange = (event) => {
@@ -51,7 +51,9 @@ export const DoceList = () => {
         <td>{row.nome}</td>
         <td>{row.preco}</td>
         <td>
-          <button onClick={() => handleExcluir(row.id)}>Excluir</button>
+          <button onClick={() => handleExcluir(row.id, row.nome)}>
+            Excluir
+          </button>
           <button onClick={() => history.push(`/doces/editar/${row.id}`)}>
             Editar
           </button>

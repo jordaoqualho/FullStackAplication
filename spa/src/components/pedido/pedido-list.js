@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-import { Link } from "react-router-dom";
 import Menu from "../menu/menu";
 import tempAlert from "../alert/alert";
 
@@ -27,19 +26,39 @@ const PedidoList = () => {
     doGetPedidos(0);
   }, []);
 
-  const doExcluirPedidos = async (id) => {
+  const doExcluirPedidos = async (id, name) => {
     await axios.delete(`/api/pedidos/${id}`);
-    tempAlert("Pedido " + id + " removido!", 5000);
+    tempAlert("Pedido de " + name + " excluído!", 5000);
     doGetPedidos(0);
   };
 
-  const handleExcluir = (id) => {
-    doExcluirPedidos(id);
+  const doGerarPedidos = async () => {
+    await axios.post(`/api/pedidos/gerar-pedidos`);
+    tempAlert("10 Pedidos gerados!", 5000);
+    doGetPedidos(0);
   };
 
-  const handleSearchInputChange = (event) => {
+  const doExcluirTodosPedidos = async () => {
+    await axios.delete(`/api/pedidos/excluir-todos`);
+    tempAlert("Todos Pedidos excluídos!", 5000);
+    doGetPedidos(0);
+  };
+
+  const handleExcluir = (id, name) => {
+    doExcluirPedidos(id, name);
+  };
+
+  const handleGerar = () => {
+    doGerarPedidos();
+  };
+
+  const handleExcluirTodos = () => {
+    doExcluirTodosPedidos();
+  };
+
+  const handleSearchInputChange = async (event) => {
     setTermoDeBusca(event.target.value);
-    doGetPedidos(páginaRequerida);
+    await doGetPedidos(páginaRequerida);
   };
 
   const handleSearch = () => {
@@ -53,11 +72,12 @@ const PedidoList = () => {
         <td>{row.lancadoEm}</td>
         <td>{row.valorTotal}</td>
         <td>
-          <button onClick={() => handleExcluir(row.id)}>Excluir</button>
+          <button onClick={() => handleExcluir(row.id, row.nomeDoCliente)}>
+            Excluir
+          </button>
           <button onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
             Editar
           </button>
-          
         </td>
       </tr>
     );
@@ -65,7 +85,7 @@ const PedidoList = () => {
 
   useEffect(() => {
     doGetPedidos(páginaRequerida);
-  }, []);
+  }, [páginaRequerida]);
 
   const requestPage = (requestedPage) => {
     if (requestedPage <= 0) {
@@ -78,9 +98,15 @@ const PedidoList = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <Menu></Menu>
       <h2>Pedidos Feitos</h2>
+      <button className="btn-page" onClick={handleGerar}>
+        Gerar Pedidos
+      </button>
+      <button className="btn-page" onClick={handleExcluirTodos}>
+        Excluir Todos
+      </button>
       <hr></hr>
       <div className="pd">
         <input
@@ -114,7 +140,10 @@ const PedidoList = () => {
         {"<"}
       </button>
       <span>
-        Página {pedidos.pageable.pageNumber + 1} de {pedidos.totalPages}
+        Página{" "}
+        {pedidos.pageable.pageNumber +
+          (pedidos.totalPages / pedidos.totalPages )}{" "}
+        de {pedidos.totalPages}
       </span>
       <button
         className="btn-page"
