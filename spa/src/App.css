@@ -127,13 +127,14 @@ h2 {
   font-weight: 300;
 }
 .btn {
-  background-color: var(--light);
+  background-color: var(--bg);
   font-size: 15px;
   font-weight: 900;
-  color: var(--bg);
+  color: var(--light);
+  margin-top: 50px;
   cursor: pointer;
   text-transform: uppercase;
-  border: none;
+  border: 1px solid var(--purple);
   padding: 18px 0px;
   margin-bottom: 20px;
   width: 100%;
@@ -172,16 +173,23 @@ h2 {
   justify-content: space-between;
   margin-top: 50px;
 }
+hr {
+  background-color: red;
+  color: var(--purple);
+}
 .cb {
   height: 44px;
   padding: 0 25px !important;
   margin: 0 !important;
+  box-shadow: 10px 10px 80px rgba(104, 42, 233, 1);
+  color: white;
   border-radius: 10px 0px 0px 10px;
-  background-color: var(--light);
+  background-color: var(--bg);
   padding: 5px 20px;
 }
 .cb::placeholder {
   font-weight: 300;
+  color: var(--comment);
 }
 .bb {
   background-color: var(--purple);
@@ -227,13 +235,13 @@ h2 {
   color: var(--purple);
 }
 .btn-page {
-  background-color: var(--light);
+  background-color: var(--bg);
   font-size: 15px;
   font-weight: 900;
-  color: var(--bg);
+  color: var(--light);
+  border: 1px solid var(--purple);
   cursor: pointer;
   text-transform: uppercase;
-  border: none;
   padding: 10px 30px;
   font-weight: 900;
   border-radius: 10px;

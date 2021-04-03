@@ -84,20 +84,7 @@ const PedidoList = () => {
 
           <h2>R$ {row.valorTotal},00</h2>
         </div>
-      </div>
-      // <tr key={row.id}>
-      //   <td>{row.nomeDoCliente}</td>
-      //   <td>{row.lancadoEm}</td>
-      //   <td>{row.valorTotal}</td>
-      //   <td>
-      //     <button onClick={() => handleExcluir(row.id, row.nomeDoCliente)}>
-      //       Excluir
-      //     </button>
-      //     <button onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
-      //       Editar
-      //     </button>
-      //   </td>
-      // </tr>
+      </div>      
     );
   });
 
@@ -125,7 +112,6 @@ const PedidoList = () => {
       <button className="btn-page" onClick={handleExcluirTodos}>
         Excluir Todos
       </button>
-      <hr></hr>
       <div className="pd">
         <input
           className="cb"
