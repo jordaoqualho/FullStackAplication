@@ -19,7 +19,6 @@ const PedidoEdit = () => {
   const doGetById = async () => {
     const response = await axios.get(`/api/pedidos/${idParaEditar}`, pedido);
     setPedido(response.data);
-    console.log(response.data);
   };
 
   useEffect(() => {

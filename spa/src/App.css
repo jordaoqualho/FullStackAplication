@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 :root {
-  --purple: #682ae9;
+  --purple: rgb(104, 42, 233);
   --light: #dbdbdb;
   --bg: #0e1212;
   --comment: #555;
@@ -15,27 +15,55 @@
   font-family: var(--font);
   outline: none;
 }
-table,
-th,
-td {
-  border: 1px solid var(--comment);
-  border-collapse: collapse;
-  padding: 5px 50px;
+.tb {
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 50px;
   break-before: 5px;
-  margin-top: 50px;
+  margin-top: 25px;
   font-weight: 300;
   font-size: 24px;
-  flex-direction: row;
+  box-shadow: 10px 10px 80px rgba(104, 42, 233, 1);
 }
 
-.container,
-table {
+.tb h2,
+.tb p {
+  margin: 0;
+  margin-bottom: 1px solid red;
+}
+.tb p {
+  font-size: 14px;
+  color: var(--comment);
+}
+.tb-price {
+  text-align: right;
+  list-style: none;
+}
+.tb-price button {
+  margin-left: 20px;
+}
+.tb-price h2 {
+  margin-top: -10px;
+}
+.tb-price a {
+  cursor: pointer;
+  margin-left: 20px;
+  font-size: 16px;
+  color: var(--comment);
+  transition: 0.3s ease;
+}
+.tb-price a:hover {
+  color: var(--purple);
+}
+.container {
   width: 100%;
 }
 .container {
   margin-bottom: 100px;
 }
-table button {
+.tb button {
   padding: 10px 20px;
   font-weight: 900;
   font-size: 16px;
@@ -45,13 +73,13 @@ table button {
   border-radius: 5px;
   margin-right: 5px;
 }
-table button:hover {
+.tb button:hover {
   color: var(--light);
 }
-table button:hover:nth-child(1) {
+.tb button:hover:nth-child(1) {
   background-color: var(--comment);
 }
-table button:hover:nth-child(2) {
+.tb button:hover:nth-child(2) {
   background-color: var(--purple);
 }
 

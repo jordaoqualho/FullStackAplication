@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import Menu from "../menu/menu";
 import tempAlert from "../alert/alert";
@@ -67,19 +69,35 @@ const PedidoList = () => {
 
   const tableData = pedidos.content.map((row) => {
     return (
-      <tr key={row.id}>
-        <td>{row.nomeDoCliente}</td>
-        <td>{row.lancadoEm}</td>
-        <td>{row.valorTotal}</td>
-        <td>
-          <button onClick={() => handleExcluir(row.id, row.nomeDoCliente)}>
-            Excluir
-          </button>
-          <button onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
-            Editar
-          </button>
-        </td>
-      </tr>
+      <div className="tb">
+        <div className="tb-title">
+          <p>{row.id}</p>
+          <h2>{row.nomeDoCliente}</h2> <p>{row.lancadoEm}</p>
+        </div>
+        <div className="tb-price">
+          <a onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
+            <FontAwesomeIcon icon={faEdit} />
+          </a>
+          <a onClick={() => handleExcluir(row.id, row.nomeDoCliente)}>
+            <FontAwesomeIcon icon={faTrash} />
+          </a>
+
+          <h2>R$ {row.valorTotal},00</h2>
+        </div>
+      </div>
+      // <tr key={row.id}>
+      //   <td>{row.nomeDoCliente}</td>
+      //   <td>{row.lancadoEm}</td>
+      //   <td>{row.valorTotal}</td>
+      //   <td>
+      //     <button onClick={() => handleExcluir(row.id, row.nomeDoCliente)}>
+      //       Excluir
+      //     </button>
+      //     <button onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
+      //       Editar
+      //     </button>
+      //   </td>
+      // </tr>
     );
   });
 
@@ -119,17 +137,7 @@ const PedidoList = () => {
           Pesquisar
         </button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <td>Nome Do Cliente</td>
-            <td>Lançado em</td>
-            <td>Valor Total</td>
-            <td>Ações</td>
-          </tr>
-        </thead>
-        <tbody>{tableData}</tbody>
-      </table>
+      <div className="tb-cnt">{tableData}</div>
       <button className="btn" onClick={() => history.push("/pedidos/novo")}>
         Criar Novo Pedido
       </button>
@@ -141,8 +149,7 @@ const PedidoList = () => {
       </button>
       <span>
         Página{" "}
-        {pedidos.pageable.pageNumber +
-          (pedidos.totalPages / pedidos.totalPages )}{" "}
+        {pedidos.pageable.pageNumber + pedidos.totalPages / pedidos.totalPages}{" "}
         de {pedidos.totalPages}
       </span>
       <button
