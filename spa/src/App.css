@@ -93,6 +93,7 @@ input {
   margin-bottom: 40px;
   font-weight: 500;
   color: var(--bg);
+  background-color: #fff;
   outline: none;
   width: calc(100% - 20px);
   border-radius: 10px;

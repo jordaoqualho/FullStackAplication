@@ -20,21 +20,12 @@ public class PedidoService {
     private PedidoRepository repository;
       Faker faker = new Faker();
 
-
     public Page<Pedido> obterTodos(Pageable pageRequest, String termo) {
         if (termo == null || termo.trim().length() == 0) {
              return repository.findAll(pageRequest);            
         }
         return repository.findBynomeDoClienteLike(pageRequest, "%" + termo + "%");
-    } 
-
-    // public List<Pedido> obterTodos(String termo) {
-    //     if (termo == null || termo.trim().length() == 0) {
-    //         return repository.findAll();            
-    //     }
-    //     //return repository.encontrarComTermo(termo);            
-    //     return repository.findBynomeDoClienteLike("%" + termo + "%");
-    // } 
+    }  
 
     public Pedido obterPeloId(String id) {
         return repository.findById(id).orElseGet(Pedido::new);

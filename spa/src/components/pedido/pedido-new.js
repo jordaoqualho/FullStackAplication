@@ -35,7 +35,6 @@ const PedidoNew = () => {
   return (
     <div>
       <h3>Cadastro de Pedido</h3>
-      <hr></hr>
       <form onSubmit={handleSubmit}>
         <div>
           Nome Do Cliente
