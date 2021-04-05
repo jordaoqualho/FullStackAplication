@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 :root {
   --purple: rgb(104, 42, 233);
+  --red: rgb(192, 0, 0);
   --light: #dbdbdb;
   --bg: #0e1212;
   --comment: #555;
@@ -11,12 +12,26 @@
   text-align: start;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--purple);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--comment);
+}
 * {
   font-family: var(--font);
   outline: none;
 }
 .tb {
   border-radius: 20px;
+  cursor: default;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -26,12 +41,23 @@
   font-weight: 300;
   font-size: 24px;
   box-shadow: 10px 10px 80px rgba(104, 42, 233, 1);
+  transition: all 0.3s ease;
+}
+.tb:hover {
+  background-color: var(--purple);
+}
+.tb:hover p {
+  color: var(--light);
+}
+.tb:hover a {
+  color: var(--light);
 }
 
 .tb h2,
 .tb p {
   margin: 0;
-  margin-bottom: 1px solid red;
+  transition: all 0.3s ease;
+  margin-bottom: 1px solid var(--red);
 }
 .tb p {
   font-size: 14px;
@@ -48,14 +74,18 @@
   margin-top: -10px;
 }
 .tb-price a {
+  transition: all 0.3s ease;
   cursor: pointer;
   margin-left: 20px;
-  font-size: 16px;
+  font-size: 20px;
   color: var(--comment);
   transition: 0.3s ease;
 }
 .tb-price a:hover {
-  color: var(--purple);
+  color: var(--bg);
+}
+.tb-price .i-lixo:hover {
+  color: var(--red);
 }
 .container {
   width: 100%;
@@ -148,14 +178,15 @@ h2 {
   color: var(--light);
   background-color: var(--purple);
 }
+
 .btn-cancel {
   font-size: 15px;
-  background-color: var(--light);
+  background-color: var(--bg);
   font-weight: 900;
-  color: var(--bg);
+  color: var(--light);
   cursor: pointer;
   text-transform: uppercase;
-  border: none;
+  border: 1px solid var(--purple);
   padding: 18px 0px;
   margin-bottom: 20px;
   width: 100%;
@@ -165,8 +196,9 @@ h2 {
   transition: all 0.3s ease;
 }
 .btn-cancel:hover {
-  color: white;
-  background-color: var(--comment);
+  color: var(--light);
+  background-color: var(--red);
+  border: 1px solid var(--red);
 }
 
 .pd {
@@ -174,10 +206,7 @@ h2 {
   justify-content: space-between;
   margin-top: 50px;
 }
-hr {
-  background-color: red;
-  color: var(--purple);
-}
+
 .cb {
   height: 44px;
   padding: 0 25px !important;
@@ -193,7 +222,8 @@ hr {
   color: var(--comment);
 }
 .bb {
-  background-color: var(--purple);
+  background-color: var(--bg);
+  box-shadow: 0px 0px 200px rgba(104, 42, 233, 1) inset;
   font-size: 12px;
   font-weight: 900;
   color: var(--light);
@@ -207,7 +237,7 @@ hr {
   transition: all 0.3s ease;
 }
 .bb:hover {
-  background-color: var(--comment);
+  box-shadow: 0px 0px 30px rgba(104, 42, 233, 1) inset;
 
   color: white;
 }
@@ -226,9 +256,9 @@ hr {
 .nav a {
   text-decoration: dashed;
   padding-right: 100px;
-  font-weight: 100;
+  font-weight: 300;
   list-style: none;
-  font-size: 32px;
+  font-size: 24px;
   color: var(--light);
   transition: 0.3s ease;
 }
@@ -252,6 +282,13 @@ hr {
 .btn-page:hover {
   background-color: var(--purple);
   color: var(--light);
+}
+.lixo {
+  margin-left: 50px;
+}
+.lixo:hover {
+  background-color: var(--red) !important;
+  border: 1px solid var(--red);
 }
 span {
   font-size: 18px;

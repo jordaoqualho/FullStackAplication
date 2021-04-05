@@ -78,7 +78,7 @@ const PedidoList = () => {
           <a onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
             <FontAwesomeIcon icon={faEdit} />
           </a>
-          <a onClick={() => handleExcluir(row.id, row.nomeDoCliente)}>
+          <a className='i-lixo' onClick={() => handleExcluir(row.id, row.nomeDoCliente)}>
             <FontAwesomeIcon icon={faTrash} />
           </a>
 
@@ -109,7 +109,7 @@ const PedidoList = () => {
       <button className="btn-page" onClick={handleGerar}>
         Gerar Pedidos
       </button>
-      <button className="btn-page" onClick={handleExcluirTodos}>
+      <button className="btn-page lixo" onClick={handleExcluirTodos}>
         Excluir Todos
       </button>
       <div className="pd">
