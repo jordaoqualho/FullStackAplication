@@ -10,7 +10,7 @@ const Menu = () => {
           <li>Home</li>
         </Link>
         <Link to="/pratos">
-          <li>Comida</li>
+          <li>Pratos</li>
         </Link>
         <Link to="/pedidos">
           <li>Pedidos</li>

@@ -9,9 +9,9 @@ const PratoEdit = () => {
   const history = useHistory();
   const { idParaEditar } = useParams();
   const [prato, setPrato] = useState({
-    nomeDoCliente: "",
-    lancadoEm: new Date(),
-    valorTotal: 0.0,
+    nomeDoPrato: "",
+    preco: 0.0,
+    estoque: 0,
   });
 
   console.log(idParaEditar);
@@ -27,7 +27,7 @@ const PratoEdit = () => {
 
   const doPut = async () => {
     await axios.put(`/api/pratos/${idParaEditar}`, prato);
-    tempAlert(`${prato.nomeDoCliente} alterado com sucesso!`, 5000);
+    tempAlert(`${prato.nomeDoPrato} alterado com sucesso!`, 5000);
     history.push("/pratos");
   };
 
@@ -49,30 +49,30 @@ const PratoEdit = () => {
           Nome Do Cliente
           <input
             type="text"
-            name="nomeDoCliente"
+            name="nomeDoPrato"
             required
             onChange={handleChange}
-            value={prato.nomeDoCliente}
+            value={prato.nomeDoPrato}
           ></input>
         </div>
         <div>
-          Lançado em
-          <input
-            type="date"
-            name="lancadoEm"
-            required
-            onChange={handleChange}
-            value={prato.lancadoEm}
-          ></input>
-        </div>
-        <div>
-          Valor Total
+          Preço
           <input
             type="text"
-            name="valorTotal"
+            name="preco"
             required
             onChange={handleChange}
-            value={prato.valorTotal}
+            value={prato.preco}
+          ></input>
+        </div>
+        <div>
+          Estoque
+          <input
+            type="text"
+            name="estoque"
+            required
+            onChange={handleChange}
+            value={prato.estoque}
           ></input>
         </div>
         <button className="btn">Enviar</button>

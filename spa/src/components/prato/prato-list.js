@@ -92,7 +92,7 @@ const PratoList = (props) => {
       <div className="tb" key={row.id}>
         <div className="tb-title">
           <p>{row.id}</p>
-          <h2>{row.nomeDoCliente}</h2> <p>{row.lancadoEm}</p>
+          <h2>{row.nomeDoPrato}</h2> <p>{row.estoque} no estoque</p>
         </div>
         <div className="tb-price">
           <button onClick={() => history.push(`/pratos/editar/${row.id}`)}>
@@ -100,11 +100,11 @@ const PratoList = (props) => {
           </button>
           <button
             className="i-lixo"
-            onClick={() => handleExcluir(row.id, row.nomeDoCliente)}
+            onClick={() => handleExcluir(row.id, row.nomeDoPrato)}
           >
             <FontAwesomeIcon icon={faTrash} />
           </button>
-          <h2>R$ {row.valorTotal},00</h2>
+          <h2>R$ {row.preco}0</h2>
         </div>
       </div>
     );
