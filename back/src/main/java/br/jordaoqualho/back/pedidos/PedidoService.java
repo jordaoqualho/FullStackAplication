@@ -47,7 +47,8 @@ public class PedidoService {
     public void gerarPedidos(){             
         for (int i = 0; i < 10; i++) {
             String nome = faker.name().fullName();            
-            LocalDate localDate = LocalDate.now();            
+            LocalDate localDate = LocalDate.now();  
+           
             int preco = faker.number().numberBetween(100, 1000);
             Pedido novo = new Pedido(nome, localDate, new BigDecimal(preco));
             repository.save(novo);            

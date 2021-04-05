@@ -44,7 +44,6 @@ const PedidoEdit = () => {
   return (
     <div>
       <h2>Edição de Pedido</h2>
-      <hr></hr>
       <form onSubmit={handleSubmit}>
         <div>
           Nome Do Cliente

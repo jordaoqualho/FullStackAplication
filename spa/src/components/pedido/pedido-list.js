@@ -7,68 +7,87 @@ import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Menu from "../menu/menu";
 import tempAlert from "../alert/alert";
 
-const PedidoList = () => {
+const PedidoList = (props) => {
+  const { statusPesquisa, setStatusPesquisa } = props;
   const history = useHistory();
   const [pedidos, setPedidos] = useState({
     content: [],
     pageable: { pageNumber: 0 },
     totalPages: 0,
   });
-  const [termoDeBusca, setTermoDeBusca] = useState("");
-  const [páginaRequerida, setPáginaRequerida] = useState(0);
 
-  const doGetPedidos = async (páginaRequerida) => {
+  const doGetPedidos = async (páginaRequerida, termoDePesquisa) => {
     const response = await axios.get(
-      `/api/pedidos?termo=${termoDeBusca}&page=${páginaRequerida}`
+      `/api/pedidos?termo=${termoDePesquisa}&page=${páginaRequerida}`
     );
+
+    const novoStatusPesquisa = {
+      ...statusPesquisa,
+      páginaAtual: páginaRequerida,
+    };
+    setStatusPesquisa(novoStatusPesquisa);
+
     setPedidos(response.data);
   };
 
   useEffect(() => {
-    doGetPedidos(0);
+    doGetPedidos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const doExcluirPedidos = async (id, name) => {
     await axios.delete(`/api/pedidos/${id}`);
+    if (pedidos.content.length === 1) {
+      doGetPedidos(
+        statusPesquisa.páginaAtual - 1,
+        statusPesquisa.termoDePesquisa
+      );
+    } else {
+      doGetPedidos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
+    }
     tempAlert("Pedido de " + name + " excluído!", 5000);
-    doGetPedidos(0);
-  };
-
-  const doGerarPedidos = async () => {
-    await axios.post(`/api/pedidos/gerar-pedidos`);
-    tempAlert("10 Pedidos gerados!", 5000);
-    doGetPedidos(0);
-  };
-
-  const doExcluirTodosPedidos = async () => {
-    await axios.delete(`/api/pedidos/excluir-todos`);
-    tempAlert("Todos Pedidos excluídos!", 5000);
-    doGetPedidos(0);
   };
 
   const handleExcluir = (id, name) => {
     doExcluirPedidos(id, name);
   };
 
+  const handleSearchInputChange = async (event) => {
+    const novoStatusPesquisa = {
+      ...statusPesquisa,
+      termoDePesquisa: event.target.value,
+    };
+    setStatusPesquisa(novoStatusPesquisa);
+
+    // pesquisa instantanea
+    // await doGetPedidos(páginaRequerida);
+  };
+
+  const handleSearch = () => {
+    doGetPedidos(0, statusPesquisa.termoDePesquisa);
+  };
+
+  const doGerarPedidos = async () => {
+    await axios.post(`/api/pedidos/gerar-pedidos`);
+    tempAlert("10 Pedidos gerados!", 5000);
+    doGetPedidos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
+  };
+
   const handleGerar = () => {
     doGerarPedidos();
+  };
+
+  const doExcluirTodosPedidos = async () => {
+    await axios.delete(`/api/pedidos/excluir-todos`);
+    tempAlert("Todos Pedidos excluídos!", 5000);
+    doGetPedidos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
   };
 
   const handleExcluirTodos = () => {
     doExcluirTodosPedidos();
   };
 
-  const handleSearchInputChange = async (event) => {
-    setTermoDeBusca(event.target.value);
-    // await doGetPedidos(páginaRequerida);
-  };
-
-  const handleSearch = () => {
-    doGetPedidos(0);
-  };
-
-  const tableData = pedidos.content.map((row) => {
+  const tableData = pedidos.content.map((row) => {      
     return (
       <div className="tb" key={row.id}>
         <div className="tb-title">
@@ -91,11 +110,6 @@ const PedidoList = () => {
     );
   });
 
-  useEffect(() => {
-    doGetPedidos(páginaRequerida);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [páginaRequerida]);
-
   const requestPage = (requestedPage) => {
     if (requestedPage <= 0) {
       requestedPage = 0;
@@ -103,7 +117,7 @@ const PedidoList = () => {
     if (requestedPage >= pedidos.totalPages) {
       requestedPage = pedidos.totalPages - 1;
     }
-    setPáginaRequerida(requestedPage);
+    doGetPedidos(requestedPage, statusPesquisa.termoDePesquisa);
   };
 
   return (
@@ -120,6 +134,7 @@ const PedidoList = () => {
         <input
           className="cb"
           type="text"
+          value={statusPesquisa.termoDePesquisa}
           placeholder="O que deseja buscar?"
           onChange={handleSearchInputChange}
         />
