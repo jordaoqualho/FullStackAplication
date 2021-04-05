@@ -26,6 +26,7 @@ const PedidoList = () => {
 
   useEffect(() => {
     doGetPedidos(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const doExcluirPedidos = async (id, name) => {
@@ -60,7 +61,7 @@ const PedidoList = () => {
 
   const handleSearchInputChange = async (event) => {
     setTermoDeBusca(event.target.value);
-    await doGetPedidos(páginaRequerida);
+    // await doGetPedidos(páginaRequerida);
   };
 
   const handleSearch = () => {
@@ -69,27 +70,30 @@ const PedidoList = () => {
 
   const tableData = pedidos.content.map((row) => {
     return (
-      <div className="tb">
+      <div className="tb" key={row.id}>
         <div className="tb-title">
           <p>{row.id}</p>
           <h2>{row.nomeDoCliente}</h2> <p>{row.lancadoEm}</p>
         </div>
         <div className="tb-price">
-          <a onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
+          <button onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
             <FontAwesomeIcon icon={faEdit} />
-          </a>
-          <a className='i-lixo' onClick={() => handleExcluir(row.id, row.nomeDoCliente)}>
+          </button>
+          <button
+            className="i-lixo"
+            onClick={() => handleExcluir(row.id, row.nomeDoCliente)}
+          >
             <FontAwesomeIcon icon={faTrash} />
-          </a>
-
+          </button>
           <h2>R$ {row.valorTotal},00</h2>
         </div>
-      </div>      
+      </div>
     );
   });
 
   useEffect(() => {
     doGetPedidos(páginaRequerida);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [páginaRequerida]);
 
   const requestPage = (requestedPage) => {
@@ -134,9 +138,8 @@ const PedidoList = () => {
         {"<"}
       </button>
       <span>
-        Página{" "}
-        {pedidos.pageable.pageNumber + pedidos.totalPages / pedidos.totalPages}{" "}
-        de {pedidos.totalPages}
+        Página {pedidos.totalPages > 0 ? pedidos.pageable.pageNumber + 1 : 0} de{" "}
+        {pedidos.totalPages}
       </span>
       <button
         className="btn-page"

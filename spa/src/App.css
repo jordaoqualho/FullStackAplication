@@ -49,7 +49,7 @@
 .tb:hover p {
   color: var(--light);
 }
-.tb:hover a {
+.tb:hover button {
   color: var(--light);
 }
 
@@ -73,15 +73,18 @@
 .tb-price h2 {
   margin-top: -10px;
 }
-.tb-price a {
+.tb-price button {
+  border: none;
   transition: all 0.3s ease;
   cursor: pointer;
+  padding: 0;
+  background-color: transparent;
   margin-left: 20px;
   font-size: 20px;
   color: var(--comment);
   transition: 0.3s ease;
 }
-.tb-price a:hover {
+.tb-price button:hover {
   color: var(--bg);
 }
 .tb-price .i-lixo:hover {
@@ -93,26 +96,6 @@
 .container {
   margin-bottom: 100px;
 }
-.tb button {
-  padding: 10px 20px;
-  font-weight: 900;
-  font-size: 16px;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-right: 5px;
-}
-.tb button:hover {
-  color: var(--light);
-}
-.tb button:hover:nth-child(1) {
-  background-color: var(--comment);
-}
-.tb button:hover:nth-child(2) {
-  background-color: var(--purple);
-}
-
 form {
   margin: 50px 0;
 }
