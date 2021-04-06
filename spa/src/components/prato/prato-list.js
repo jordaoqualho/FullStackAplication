@@ -6,6 +6,7 @@ import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import Menu from "../menu/menu";
 import tempAlert from "../alert/alert";
+import DeleteConfirm from "../alert/deleteConfirm";
 
 const PratoList = (props) => {
   const { statusPesquisa, setStatusPesquisa } = props;
@@ -15,6 +16,7 @@ const PratoList = (props) => {
     pageable: { pageNumber: 0 },
     totalPages: 0,
   });
+  const [confirmState, setConfirmState] = useState(false);
 
   const doGetPratos = async (páginaRequerida, termoDePesquisa) => {
     const response = await axios.get(
@@ -34,23 +36,6 @@ const PratoList = (props) => {
     doGetPratos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const doExcluirPratos = async (id, name) => {
-    await axios.delete(`/api/pratos/${id}`);
-    if (pratos.content.length === 1) {
-      doGetPratos(
-        statusPesquisa.páginaAtual - 1,
-        statusPesquisa.termoDePesquisa
-      );
-    } else {
-      doGetPratos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
-    }
-    tempAlert("Prato de " + name + " excluído!", 5000);
-  };
-
-  const handleExcluir = (id, name) => {
-    doExcluirPratos(id, name);
-  };
 
   const handleSearchInputChange = async (event) => {
     const novoStatusPesquisa = {
@@ -77,6 +62,24 @@ const PratoList = (props) => {
     doGerarPratos();
   };
 
+  const doExcluirPratos = async (id, name) => {
+    await axios.delete(`/api/pratos/${id}`);
+    if (pratos.content.length === 1) {
+      doGetPratos(
+        statusPesquisa.páginaAtual - 1,
+        statusPesquisa.termoDePesquisa
+      );
+    } else {
+      doGetPratos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
+    }
+    tempAlert("Prato de " + name + " excluído!", 5000);
+  };
+
+  const handleExcluir = (id, name) => {
+    setConfirmState(true);
+    // doExcluirPratos(id, name);
+  };
+
   const doExcluirTodosPratos = async () => {
     await axios.delete(`/api/pratos/excluir-todos`);
     tempAlert("Todos Pratos excluídos!", 5000);
@@ -87,7 +90,11 @@ const PratoList = (props) => {
     doExcluirTodosPratos();
   };
 
-  const tableData = pratos.content.map((row) => {      
+  const renderConfirmDelete = () => {
+    return <DeleteConfirm estado={confirmState}></DeleteConfirm>;
+  };
+
+  const tableData = pratos.content.map((row) => {
     return (
       <div className="tb" key={row.id}>
         <div className="tb-title">
@@ -123,6 +130,7 @@ const PratoList = (props) => {
   return (
     <div className="container">
       <Menu></Menu>
+      {renderConfirmDelete()}
       <h2>Lista de Pratos</h2>
       <button className="btn-page" onClick={handleGerar}>
         Gerar Pratos
