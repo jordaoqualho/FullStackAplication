@@ -48,7 +48,8 @@ const PratoList = (props) => {
     // await doGetPratos(páginaRequerida);
   };
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     doGetPratos(0, statusPesquisa.termoDePesquisa);
   };
 
@@ -138,7 +139,7 @@ const PratoList = (props) => {
       <button className="btn-page lixo" onClick={handleExcluirTodos}>
         Excluir Todos
       </button>
-      <div className="pd">
+      <form onSubmit={handleSearch} className="pd">
         <input
           className="cb"
           type="text"
@@ -149,7 +150,7 @@ const PratoList = (props) => {
         <button className="bb" onClick={handleSearch}>
           Pesquisar
         </button>
-      </div>
+      </form>
       <div className="tb-cnt">{tableData}</div>
       <button className="btn" onClick={() => history.push("/pratos/novo")}>
         Criar Novo Prato

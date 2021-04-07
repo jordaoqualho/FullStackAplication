@@ -63,7 +63,8 @@ const PedidoList = (props) => {
     // await doGetPedidos(páginaRequerida);
   };
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     doGetPedidos(0, statusPesquisa.termoDePesquisa);
   };
 
@@ -87,7 +88,7 @@ const PedidoList = (props) => {
     doExcluirTodosPedidos();
   };
 
-  const tableData = pedidos.content.map((row) => {      
+  const tableData = pedidos.content.map((row) => {
     return (
       <div className="tb" key={row.id}>
         <div className="tb-title">
@@ -130,7 +131,7 @@ const PedidoList = (props) => {
       <button className="btn-page lixo" onClick={handleExcluirTodos}>
         Excluir Todos
       </button>
-      <div className="pd">
+      <form onSubmit={handleSearch} className="pd">
         <input
           className="cb"
           type="text"
@@ -141,7 +142,7 @@ const PedidoList = (props) => {
         <button className="bb" onClick={handleSearch}>
           Pesquisar
         </button>
-      </div>
+      </form>
       <div className="tb-cnt">{tableData}</div>
       <button className="btn" onClick={() => history.push("/pedidos/novo")}>
         Criar Novo Pedido
