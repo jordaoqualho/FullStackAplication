@@ -8,18 +8,18 @@ import tempAlert from "../alert/alert";
 /* rafc  - comando para criar um component arrow*/
 
 const PratoNew = () => {
-  console.log('oi');
+  console.log("oi");
   const history = useHistory();
   const [prato, setPrato] = useState({
-    nomeDoCliente: "",
-    lancadoEm: new Date(),
-    valorTotal: 0.0,
+    nomeDoPrato: "",
+    preco: 0.0,
+    estoque: 1000,
   });
 
   // nfn - comando para criar função anonima
   const doPost = async () => {
     await axios.post("/api/pratos", prato);
-    tempAlert(`Prato adicionado com sucesso!`,5000);
+    tempAlert(`Prato adicionado com sucesso!`, 5000);
     history.push("/pratos");
   };
 
@@ -38,30 +38,33 @@ const PratoNew = () => {
       <h3>Cadastro de Prato</h3>
       <form onSubmit={handleSubmit}>
         <div>
-          Nome Do Cliente
+          Nome Do Prato
           <input
             type="text"
+            name="nomeDoPrato"
             required
-            name="nomeDoCliente"
             onChange={handleChange}
+            value={prato.nomeDoPrato}
           ></input>
         </div>
         <div>
-          Lançado em
+          Preço
           <input
-            type="date"
+            type="text"
+            name="preco"
             required
-            name="lancadoEm"
             onChange={handleChange}
+            value={prato.preco}
           ></input>
         </div>
         <div>
-          Valor Total
+          Estoque
           <input
             type="text"
+            name="estoque"
             required
-            name="valorTotal"
             onChange={handleChange}
+            value={prato.estoque}
           ></input>
         </div>
         <button className="btn">Enviar</button>

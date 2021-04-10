@@ -14,8 +14,6 @@ const PratoEdit = () => {
     estoque: 0,
   });
 
-  console.log(idParaEditar);
-
   const doGetById = async () => {
     const response = await axios.get(`/api/pratos/${idParaEditar}`, prato);
     setPrato(response.data);
@@ -46,7 +44,7 @@ const PratoEdit = () => {
       <h2>Edição de Prato</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          Nome Do Cliente
+          Nome Do Prato
           <input
             type="text"
             name="nomeDoPrato"

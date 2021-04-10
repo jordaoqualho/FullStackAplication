@@ -17,6 +17,9 @@ const PratoList = (props) => {
     totalPages: 0,
   });
   const [confirmState, setConfirmState] = useState(false);
+  // const [temp, setTemp] = useState({ id: "", nome: "" });
+  const [tempNome, setTempNome] = useState("");
+  const [tempId, setTempId] = useState("");
 
   const doGetPratos = async (páginaRequerida, termoDePesquisa) => {
     const response = await axios.get(
@@ -74,11 +77,14 @@ const PratoList = (props) => {
       doGetPratos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
     }
     tempAlert("Prato de " + name + " excluído!", 5000);
+    setConfirmState(false);
   };
 
   const handleExcluir = (id, name) => {
     setConfirmState(true);
-    // doExcluirPratos(id, name);
+    // setTemp(id, nome);
+    setTempId(id);
+    setTempNome(name);
   };
 
   const doExcluirTodosPratos = async () => {
@@ -92,7 +98,15 @@ const PratoList = (props) => {
   };
 
   const renderConfirmDelete = () => {
-    return <DeleteConfirm estado={confirmState}></DeleteConfirm>;
+    return (
+      <DeleteConfirm
+        estado={confirmState}
+        doExcluirPratos={doExcluirPratos}
+        id={tempId}
+        nome={tempNome}
+        setConfirmState={setConfirmState}
+      ></DeleteConfirm>
+    );
   };
 
   const tableData = pratos.content.map((row) => {
