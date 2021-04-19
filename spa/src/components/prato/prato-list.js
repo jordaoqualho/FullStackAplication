@@ -21,18 +21,17 @@ const PratoList = (props) => {
   const [tempNome, setTempNome] = useState("");
   const [tempId, setTempId] = useState("");
 
-  const doGetPratos = async (páginaRequerida, termoDePesquisa) => {
-    const response = await axios.get(
-      `/api/pratos?termo=${termoDePesquisa}&page=${páginaRequerida}`
-    );
-
-    const novoStatusPesquisa = {
-      ...statusPesquisa,
-      páginaAtual: páginaRequerida,
-    };
-    setStatusPesquisa(novoStatusPesquisa);
-
-    setPratos(response.data);
+  const doGetPratos = (páginaRequerida, termoDePesquisa) => {
+    axios
+      .get(`/api/pratos?termo=${termoDePesquisa}&page=${páginaRequerida}`)
+      .then((response) => {
+        setPratos(response.data);
+        const novoStatusPesquisa = {
+          ...statusPesquisa,
+          páginaAtual: páginaRequerida,
+        };
+        setStatusPesquisa(novoStatusPesquisa);
+      });
   };
 
   useEffect(() => {
@@ -46,10 +45,12 @@ const PratoList = (props) => {
       termoDePesquisa: event.target.value,
     };
     setStatusPesquisa(novoStatusPesquisa);
-
-    // pesquisa instantanea
-    // await doGetPratos(páginaRequerida);
   };
+
+  useEffect(() => {
+    doGetPratos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statusPesquisa.termoDePesquisa]);
 
   const handleSearch = (e) => {
     e.preventDefault();
