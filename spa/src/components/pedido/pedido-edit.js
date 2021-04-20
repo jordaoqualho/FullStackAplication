@@ -14,7 +14,6 @@ const PedidoEdit = () => {
     valorTotal: 0.0,
   });
 
-  console.log(idParaEditar);
 
   const doGetById = async () => {
     const response = await axios.get(`/api/pedidos/${idParaEditar}`, pedido);

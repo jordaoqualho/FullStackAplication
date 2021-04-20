@@ -8,7 +8,6 @@ import tempAlert from "../alert/alert";
 /* rafc  - comando para criar um component arrow*/
 
 const PedidoNew = () => {
-  console.log('oi');
   const history = useHistory();
   const [pedido, setPedido] = useState({
     nomeDoCliente: "",

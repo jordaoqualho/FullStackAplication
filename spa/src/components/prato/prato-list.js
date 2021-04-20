@@ -17,21 +17,14 @@ const PratoList = (props) => {
     totalPages: 0,
   });
   const [confirmState, setConfirmState] = useState(false);
-  // const [temp, setTemp] = useState({ id: "", nome: "" });
   const [tempNome, setTempNome] = useState("");
   const [tempId, setTempId] = useState("");
 
-  const doGetPratos = (páginaRequerida, termoDePesquisa) => {
-    axios
-      .get(`/api/pratos?termo=${termoDePesquisa}&page=${páginaRequerida}`)
-      .then((response) => {
-        setPratos(response.data);
-        const novoStatusPesquisa = {
-          ...statusPesquisa,
-          páginaAtual: páginaRequerida,
-        };
-        setStatusPesquisa(novoStatusPesquisa);
-      });
+  const doGetPratos = async (páginaRequerida, termoDePesquisa) => {
+    const response = await axios.get(
+      `/api/pratos?termo=${termoDePesquisa}&page=${páginaRequerida}`
+    );
+    setPratos(response.data);
   };
 
   useEffect(() => {
@@ -51,11 +44,6 @@ const PratoList = (props) => {
     doGetPratos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusPesquisa.termoDePesquisa]);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    doGetPratos(0, statusPesquisa.termoDePesquisa);
-  };
 
   const doGerarPratos = async () => {
     await axios.post(`/api/pratos/gerar-pratos`);
@@ -83,7 +71,6 @@ const PratoList = (props) => {
 
   const handleExcluir = (id, name) => {
     setConfirmState(true);
-    // setTemp(id, nome);
     setTempId(id);
     setTempNome(name);
   };
@@ -154,7 +141,7 @@ const PratoList = (props) => {
       <button className="btn-page lixo" onClick={handleExcluirTodos}>
         Excluir Todos
       </button>
-      <form onSubmit={handleSearch} className="pd">
+      <form className="pd">
         <input
           className="cb"
           type="text"
@@ -162,9 +149,7 @@ const PratoList = (props) => {
           placeholder="O que deseja buscar?"
           onChange={handleSearchInputChange}
         />
-        <button className="bb" onClick={handleSearch}>
-          Pesquisar
-        </button>
+        <button className="bb">Pesquisar</button>
       </form>
       <div className="tb-cnt">{tableData}</div>
       <button className="btn" onClick={() => history.push("/pratos/novo")}>

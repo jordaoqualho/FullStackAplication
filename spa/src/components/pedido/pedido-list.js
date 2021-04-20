@@ -6,6 +6,7 @@ import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import Menu from "../menu/menu";
 import tempAlert from "../alert/alert";
+import DeleteConfirm from "../alert/deleteConfirm";
 
 const PedidoList = (props) => {
   const { statusPesquisa, setStatusPesquisa } = props;
@@ -15,18 +16,14 @@ const PedidoList = (props) => {
     pageable: { pageNumber: 0 },
     totalPages: 0,
   });
+  const [confirmState, setConfirmState] = useState(false);
+  const [tempNome, setTempNome] = useState("");
+  const [tempId, setTempId] = useState("");
 
   const doGetPedidos = async (páginaRequerida, termoDePesquisa) => {
     const response = await axios.get(
       `/api/pedidos?termo=${termoDePesquisa}&page=${páginaRequerida}`
     );
-
-    const novoStatusPesquisa = {
-      ...statusPesquisa,
-      páginaAtual: páginaRequerida,
-    };
-    setStatusPesquisa(novoStatusPesquisa);
-
     setPedidos(response.data);
   };
 
@@ -46,10 +43,13 @@ const PedidoList = (props) => {
       doGetPedidos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
     }
     tempAlert("Pedido de " + name + " excluído!", 5000);
+    setConfirmState(false);
   };
 
   const handleExcluir = (id, name) => {
-    doExcluirPedidos(id, name);
+    setConfirmState(true);
+    setTempId(id);
+    setTempNome(name);
   };
 
   const handleSearchInputChange = async (event) => {
@@ -58,15 +58,12 @@ const PedidoList = (props) => {
       termoDePesquisa: event.target.value,
     };
     setStatusPesquisa(novoStatusPesquisa);
-
-    // pesquisa instantanea
-    // await doGetPedidos(páginaRequerida);
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    doGetPedidos(0, statusPesquisa.termoDePesquisa);
-  };
+  useEffect(() => {
+    doGetPedidos(statusPesquisa.páginaAtual, statusPesquisa.termoDePesquisa);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statusPesquisa.termoDePesquisa]);
 
   const doGerarPedidos = async () => {
     await axios.post(`/api/pedidos/gerar-pedidos`);
@@ -86,6 +83,18 @@ const PedidoList = (props) => {
 
   const handleExcluirTodos = () => {
     doExcluirTodosPedidos();
+  };
+
+  const renderConfirmDelete = () => {
+    return (
+      <DeleteConfirm
+        estado={confirmState}
+        doExcluirPratos={doExcluirPedidos}
+        id={tempId}
+        nome={tempNome}
+        setConfirmState={setConfirmState}
+      ></DeleteConfirm>
+    );
   };
 
   const tableData = pedidos.content.map((row) => {
@@ -124,6 +133,7 @@ const PedidoList = (props) => {
   return (
     <div className="container">
       <Menu></Menu>
+      {renderConfirmDelete()}
       <h2>Pedidos Feitos</h2>
       <button className="btn-page" onClick={handleGerar}>
         Gerar Pedidos
@@ -131,7 +141,7 @@ const PedidoList = (props) => {
       <button className="btn-page lixo" onClick={handleExcluirTodos}>
         Excluir Todos
       </button>
-      <form onSubmit={handleSearch} className="pd">
+      <form className="pd">
         <input
           className="cb"
           type="text"
@@ -139,9 +149,7 @@ const PedidoList = (props) => {
           placeholder="O que deseja buscar?"
           onChange={handleSearchInputChange}
         />
-        <button className="bb" onClick={handleSearch}>
-          Pesquisar
-        </button>
+        <button className="bb">Pesquisar</button>
       </form>
       <div className="tb-cnt">{tableData}</div>
       <button className="btn" onClick={() => history.push("/pedidos/novo")}>
