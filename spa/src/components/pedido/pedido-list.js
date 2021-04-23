@@ -97,28 +97,33 @@ const PedidoList = (props) => {
     );
   };
 
-  const tableData = pedidos.content.map((row) => {
-    return (
-      <div className="tb" key={row.id}>
-        <div className="tb-title">
-          <p>{row.id}</p>
-          <h2>{row.nomeDoCliente}</h2> <p>{row.lancadoEm}</p>
-        </div>
-        <div className="tb-price">
-          <button onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
-            <FontAwesomeIcon icon={faEdit} />
-          </button>
-          <button
-            className="i-lixo"
-            onClick={() => handleExcluir(row.id, row.nomeDoCliente)}
-          >
-            <FontAwesomeIcon icon={faTrash} />
-          </button>
-          <h2>R$ {row.valorTotal},00</h2>
-        </div>
-      </div>
+  const tableData =
+    pedidos.content.length == 0 ? (
+      <p>Não há nenhum pedido com o nome "{statusPesquisa.termoDePesquisa}" </p>
+    ) : (
+      pedidos.content.map((row) => {
+        return (
+          <div className="tb" key={row.id}>
+            <div className="tb-title">
+              <p>{row.id}</p>
+              <h2>{row.nomeDoCliente}</h2> <p>{row.lancadoEm}</p>
+            </div>
+            <div className="tb-price">
+              <button onClick={() => history.push(`/pedidos/editar/${row.id}`)}>
+                <FontAwesomeIcon icon={faEdit} />
+              </button>
+              <button
+                className="i-lixo"
+                onClick={() => handleExcluir(row.id, row.nomeDoCliente)}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+              <h2>R$ {row.valorTotal},00</h2>
+            </div>
+          </div>
+        );
+      })
     );
-  });
 
   const requestPage = (requestedPage) => {
     if (requestedPage <= 0) {

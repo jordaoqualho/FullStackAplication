@@ -97,28 +97,33 @@ const PratoList = (props) => {
     );
   };
 
-  const tableData = pratos.content.map((row) => {
-    return (
-      <div className="tb" key={row.id}>
-        <div className="tb-title">
-          <p>{row.id}</p>
-          <h2>{row.nomeDoPrato}</h2> <p>{row.estoque} no estoque</p>
-        </div>
-        <div className="tb-price">
-          <button onClick={() => history.push(`/pratos/editar/${row.id}`)}>
-            <FontAwesomeIcon icon={faEdit} />
-          </button>
-          <button
-            className="i-lixo"
-            onClick={() => handleExcluir(row.id, row.nomeDoPrato)}
-          >
-            <FontAwesomeIcon icon={faTrash} />
-          </button>
-          <h2>R$ {row.preco}0</h2>
-        </div>
-      </div>
+  const tableData =
+    pratos.content.length == 0 ? (
+      <p>Não há nenhum prato com o nome "{statusPesquisa.termoDePesquisa}" </p>
+    ) : (
+      pratos.content.map((row) => {
+        return (
+          <div className="tb" key={row.id}>
+            <div className="tb-title">
+              <p>{row.id}</p>
+              <h2>{row.nomeDoPrato}</h2> <p>{row.estoque} no estoque</p>
+            </div>
+            <div className="tb-price">
+              <button onClick={() => history.push(`/pratos/editar/${row.id}`)}>
+                <FontAwesomeIcon icon={faEdit} />
+              </button>
+              <button
+                className="i-lixo"
+                onClick={() => handleExcluir(row.id, row.nomeDoPrato)}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+              <h2>R$ {row.preco}0</h2>
+            </div>
+          </div>
+        );
+      })
     );
-  });
 
   const requestPage = (requestedPage) => {
     if (requestedPage <= 0) {
