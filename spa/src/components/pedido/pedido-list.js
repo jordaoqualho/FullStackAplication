@@ -98,8 +98,8 @@ const PedidoList = (props) => {
   };
 
   const tableData =
-    pedidos.content.length == 0 ? (
-      <p>Não há nenhum pedido com o nome "{statusPesquisa.termoDePesquisa}" </p>
+    pedidos.content.length === 0 ? (
+      <p>Nada encontrado!</p>
     ) : (
       pedidos.content.map((row) => {
         return (

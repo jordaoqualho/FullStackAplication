@@ -98,8 +98,8 @@ const PratoList = (props) => {
   };
 
   const tableData =
-    pratos.content.length == 0 ? (
-      <p>Não há nenhum prato com o nome "{statusPesquisa.termoDePesquisa}" </p>
+    pratos.content.length === 0 ? (
+      <p>Nada encontrado!</p>
     ) : (
       pratos.content.map((row) => {
         return (
